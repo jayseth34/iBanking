@@ -1,0 +1,180 @@
+
+package iBanking;
+
+import java.sql.*;
+import java.util.Random;
+import javax.swing.JOptionPane;
+public class LOGINADMIN_1 extends javax.swing.JFrame {
+
+    public LOGINADMIN_1() {
+        initComponents();
+        setVisible(true);
+    }
+
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        panel1 = new java.awt.Panel();
+        login = new javax.swing.JButton();
+        pname = new javax.swing.JPasswordField();
+        uname = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        panel1.setPreferredSize(new java.awt.Dimension(600, 300));
+        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        login.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Desktop\\bank\\Login.png")); // NOI18N
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
+        panel1.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 350, 100, 30));
+
+        pname.setBackground(new java.awt.Color(255, 255, 255));
+        pname.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        panel1.add(pname, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 123, 30));
+
+        uname.setBackground(new java.awt.Color(255, 255, 255));
+        uname.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        uname.setActionCommand("<Not Set>");
+        panel1.add(uname, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, 123, 31));
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("USERNAME");
+        panel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 260, 123, 31));
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel3.setText("PASSWORD");
+        panel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 123, 31));
+
+        jLabel5.setBackground(new java.awt.Color(153, 0, 153));
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 51));
+        jLabel5.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Desktop\\bank\\admin.jpg")); // NOI18N
+        panel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 80, 100));
+
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Centaur", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(51, 0, 51));
+        jLabel2.setText("WELCOME TO iBANKING!!");
+        panel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+
+        jLabel4.setBackground(new java.awt.Color(204, 255, 204));
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Desktop\\bank\\download.png")); // NOI18N
+        panel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 310, 40, 30));
+
+        jLabel6.setBackground(new java.awt.Color(204, 255, 204));
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Desktop\\bank\\bank.jpg")); // NOI18N
+        panel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, 30));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Desktop\\bank\\i.jpg")); // NOI18N
+        panel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, -1));
+
+        jLabel8.setText("jLabel8");
+        panel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 520));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+String userName = uname.getText();
+                String password = pname.getText(); 
+                
+                try {
+                    Connection conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/bank",
+                        "root", "Preet1234");
+
+                    PreparedStatement st = (PreparedStatement) conn
+                        .prepareStatement("Select user_name, password from ADMIN where user_name=? and password=?");
+
+                    st.setString(1, userName);
+                    st.setString(2, password);
+                    ResultSet rs = st.executeQuery();
+                    if (rs.next()) {
+                        dispose();
+                        Admin_Mypage ah = new Admin_Mypage();
+                        ah.setTitle("Welcome");
+                        ah.setVisible(true);
+                        JOptionPane.showMessageDialog(login, "You have successfully logged in");
+                    } else {
+                        JOptionPane.showMessageDialog(login, "Wrong Username & Password");
+                    }
+                } catch (SQLException sqlException) {
+                    sqlException.printStackTrace();
+                }
+    }//GEN-LAST:event_loginActionPerformed
+
+    
+    public static void main(String args[]) {
+        
+        
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(LOGINADMIN_1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(LOGINADMIN_1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(LOGINADMIN_1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(LOGINADMIN_1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        
+
+      
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new LOGINADMIN_1().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JButton login;
+    private java.awt.Panel panel1;
+    private javax.swing.JPasswordField pname;
+    private javax.swing.JTextField uname;
+    // End of variables declaration//GEN-END:variables
+}
